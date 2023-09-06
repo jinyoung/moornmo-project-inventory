@@ -7,13 +7,12 @@ To publish an OrderPlaced Event :
 docker run -i --rm --network=host\
         edenhill/kcat:1.7.1 \
                 -b localhost:9092 \
-                -t test \
+                -t moornmo.project \
                 -K: \
+                -H "type=OrderPlaced" \
                 -P <<EOF
 
-1:{"order_id":1,"order_ts":1534772501276,"total_amount":10.50,"customer_name":"Bob Smith"}
-2:{"order_id":2,"order_ts":1534772605276,"total_amount":3.32,"customer_name":"Sarah Black"}
-3:{"order_id":3,"order_ts":1534772742276,"total_amount":21.00,"customer_name":"Emma Turner"}
+1:{"eventType":"OrderCreated","timestamp":1694009759996,"orderId":"0001","customerId":null,"totalAmount":null,"shippingAddress":null}
 EOF
 ```
 
