@@ -18,9 +18,6 @@ import org.springframework.stereotype.Service;
 public class PolicyHandler {
 
     @Autowired
-    Repository Repository;
-
-    @Autowired
     InventoryRepository inventoryRepository;
 
     @StreamListener(KafkaProcessor.INPUT)
