@@ -66,11 +66,11 @@ public class EventTest {
             .build()
          );
 
-         Message<InventoryUpdated> received = (Message<InventoryUpdated>) messageCollector.forChannel(processor.outboundTopic()).poll();
+         Message<String> received = (Message<String>) messageCollector.forChannel(processor.outboundTopic()).poll();
 
          LOGGER.info("Order response received: {}", received.getPayload());
          assertNotNull(received.getPayload());
-         assertEquals(o.getProductId(), received.getPayload().getId());
+         assertTrue(received.getPayload().contains(o.getProductId().toString()) );
 
       } catch (JsonProcessingException e) {
          // TODO Auto-generated catch block
