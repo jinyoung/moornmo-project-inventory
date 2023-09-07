@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import moornmo.project.config.kafka.KafkaProcessor;
+import moornmo.project.domain.Inventory;
 import moornmo.project.domain.InventoryRepository;
 import moornmo.project.domain.InventoryUpdated;
 import moornmo.project.domain.OrderCreated;
@@ -45,9 +46,15 @@ public class EventTest {
    @Test
    @SuppressWarnings("unchecked")
    public void testAccepted() {
+
+      Inventory inventory = new Inventory();
+      inventory.setId(1L);
+      inventory.setStock(10L);
+      repository.save(inventory);
+
       OrderCreated o = new OrderCreated();
-      o.setOrderId("001");
-      o.setProductId(1000L);
+      o.setOrderId("1");
+      o.setProductId(1L);
 
       InventoryApplication.applicationContext = applicationContext;
 
@@ -65,12 +72,15 @@ public class EventTest {
             .setHeader("type", o.getEventType())
             .build()
          );
+         
 
          Message<String> received = (Message<String>) messageCollector.forChannel(processor.outboundTopic()).poll();
+         InventoryUpdated inventoryUpdated = objectMapper.readValue(received.getPayload(), InventoryUpdated.class);
 
          LOGGER.info("Order response received: {}", received.getPayload());
          assertNotNull(received.getPayload());
-         assertTrue(received.getPayload().contains(o.getProductId().toString()) );
+         assertEquals(inventoryUpdated.getId(), o.getProductId());
+         assertEquals(inventoryUpdated.getStock(), (Long)(inventory.getStock() - 1));
 
       } catch (JsonProcessingException e) {
          // TODO Auto-generated catch block

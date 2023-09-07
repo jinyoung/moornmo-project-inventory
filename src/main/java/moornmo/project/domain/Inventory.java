@@ -18,7 +18,7 @@ public class Inventory {
     private Long id;
 
     private Long stock;
-    
+
     public static InventoryRepository repository() {
         InventoryRepository inventoryRepository = InventoryApplication.applicationContext.getBean(
             InventoryRepository.class
@@ -29,11 +29,14 @@ public class Inventory {
     //<<< Clean Arch / Port Method
     public static void updateInventory(OrderCreated orderCreated) {
 
-        Inventory inventory = new Inventory();
-        inventory.setId(orderCreated.getProductId());
+        repository().findById(orderCreated.getProductId()).ifPresent(inventory ->{
+            inventory.setStock(inventory.getStock() - 1);
+            repository().save(inventory);
+    
+            InventoryUpdated inventoryUpdated = new InventoryUpdated(inventory);
+            inventoryUpdated.publishAfterCommit();
+        });
 
-        InventoryUpdated inventoryUpdated = new InventoryUpdated(inventory);
-        inventoryUpdated.publishAfterCommit();
     }
     //>>> Clean Arch / Port Method
 

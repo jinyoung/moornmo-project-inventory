@@ -6,6 +6,8 @@ import lombok.*;
 @Data
 public class InventoryUpdated extends AbstractEvent{
 
+    public InventoryUpdated(){} //for jason parsers
+
     public InventoryUpdated(Inventory inventory){
         super(inventory);
     }
