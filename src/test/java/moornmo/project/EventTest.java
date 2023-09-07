@@ -47,11 +47,15 @@ public class EventTest {
    @SuppressWarnings("unchecked")
    public void testAccepted() {
 
+      //given
+
       Inventory inventory = new Inventory();
       inventory.setId(1L);
       inventory.setStock(10L);
       repository.save(inventory);
 
+      //when
+      
       OrderCreated o = new OrderCreated();
       o.setOrderId("1");
       o.setProductId(1L);
@@ -72,7 +76,10 @@ public class EventTest {
             .setHeader("type", o.getEventType())
             .build()
          );
+
+         // will happen something here.
          
+         //then
 
          Message<String> received = (Message<String>) messageCollector.forChannel(processor.outboundTopic()).poll();
          InventoryUpdated inventoryUpdated = objectMapper.readValue(received.getPayload(), InventoryUpdated.class);
