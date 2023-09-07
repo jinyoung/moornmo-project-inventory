@@ -53,4 +53,7 @@ To see logs of kafka inside the microcks:
 ```
 docker exec -it microcks-kafka /bin/bash
 cd /opt/kafka/bin
+
+./kafka-topics.sh --list --bootstrap-server localhost:9092
+./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic microcks-services-updates --from-beginning
 ```
