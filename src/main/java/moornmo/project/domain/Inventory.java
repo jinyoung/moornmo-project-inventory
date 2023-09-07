@@ -17,6 +17,8 @@ public class Inventory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private Long stock;
+    
     public static InventoryRepository repository() {
         InventoryRepository inventoryRepository = InventoryApplication.applicationContext.getBean(
             InventoryRepository.class
@@ -26,25 +28,12 @@ public class Inventory {
 
     //<<< Clean Arch / Port Method
     public static void updateInventory(OrderCreated orderCreated) {
-        //implement business logic here:
 
-        /** Example 1:  new item 
         Inventory inventory = new Inventory();
-        repository().save(inventory);
+        inventory.setId(orderCreated.getProductId());
 
-        */
-
-        /** Example 2:  finding and process
-        
-        repository().findById(orderCreated.get???()).ifPresent(inventory->{
-            
-            inventory // do something
-            repository().save(inventory);
-
-
-         });
-        */
-
+        InventoryUpdated inventoryUpdated = new InventoryUpdated(inventory);
+        inventoryUpdated.publishAfterCommit();
     }
     //>>> Clean Arch / Port Method
 

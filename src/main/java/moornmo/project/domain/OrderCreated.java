@@ -13,4 +13,5 @@ public class OrderCreated extends AbstractEvent {
     private String customerId;
     private Object totalAmount;
     private Object shippingAddress;
+    private Long productId;
 }
