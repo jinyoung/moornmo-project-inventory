@@ -6,6 +6,8 @@
 
 Spin up microcks with async api enabled:
 ```
+git clone https://github.com/microcks/microcks.git --depth 10
+
 docker compose -f docker-compose-devmode.yml up -d
 ```
 
