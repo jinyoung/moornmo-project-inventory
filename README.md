@@ -21,6 +21,16 @@ docker run -i --rm --network=host\
         edenhill/kcat:1.7.1 \
                 -b localhost:9092 \
                 -C \
-                -t moornmo.project \
+                -t microcks-services-updates \
                 -f 'Headers: %h: Message value: %s\n'
+```
+
+list topics
+```
+docker run -it --network=host edenhill/kcat:1.7.1 -b localhost:9092 -L
+```
+
+Spin up microcks with async api enabled:
+```
+docker compose -f docker-compose-devmode.yml up -d
 ```
