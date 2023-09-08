@@ -47,14 +47,14 @@ public class EventTest {
    @SuppressWarnings("unchecked")
    public void testAccepted() {
 
-      //given
+      //given:  inventory에 상품 1번의 재고가 10개 있는 상태에서
 
       Inventory inventory = new Inventory();
       inventory.setId(1L);
       inventory.setStock(10L);
       repository.save(inventory);
 
-      //when
+      //when:   해당 상품에 대한 주문이벤트가 오면 
       
       OrderCreated o = new OrderCreated();
       o.setOrderId("1");
@@ -79,7 +79,7 @@ public class EventTest {
 
          // will happen something here.
          
-         //then
+         //then:   재고량이 1 줄어든 이벤트가 퍼블리시 되어야 할 것이다.
 
          Message<String> received = (Message<String>) messageCollector.forChannel(processor.outboundTopic()).poll();
          InventoryUpdated inventoryUpdated = objectMapper.readValue(received.getPayload(), InventoryUpdated.class);
