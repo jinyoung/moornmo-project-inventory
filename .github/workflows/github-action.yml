@@ -6,10 +6,7 @@ run-name: ${{ github.actor }} is testing
 #     # Pattern matched against refs/tags
 #     tags:        
 #       - '**' 
-on:
-  push:
-    # only trigger on branches, not on tags
-    branches: '**'
+on: [push]
 
 jobs:
   docker:
