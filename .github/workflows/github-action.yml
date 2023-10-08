@@ -1,11 +1,11 @@
 name: test
 run-name: ${{ github.actor }} is testing
 
-on:
-  push:
-    # Pattern matched against refs/tags
-    tags:        
-      - '**' 
+# on:
+#   push:
+#     # Pattern matched against refs/tags
+#     tags:        
+#       - '**' 
 
 jobs:
   docker:
