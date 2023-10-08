@@ -44,7 +44,7 @@ public class Inventory {
             InventoryUpdated inventoryUpdated = new InventoryUpdated();
             inventoryUpdated.setId(currentInventory.getId());
             inventoryUpdated.setStock(currentInventory.getStock());
-            inventoryUpdated.publishAfterCommit();
+            inventoryUpdated.publsh();  //publish();
             // 여기에 이벤트를 발행하는 코드를 추가합니다.
         }
 
